@@ -1,0 +1,15 @@
+export PATH=/opt/homebrew/bin:~/Applications/Tools/bin:$PATH \
+    HOMEBREW_BUNDLE_FILE=$HOME/.Brewfile \
+    HISTFILE=~/.histfile HISTSIZE=5000 SAVEHIST=5000
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
+setopt share_history hist_ignore_all_dups hist_ignore_space
+autoload -Uz compinit promptinit
+compinit && promptinit
+prompt walters
+source $HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+[[ $- == *i* ]] && source "$HOMEBREW_PREFIX/opt/fzf/shell/completion.zsh" 2> /dev/null
+source <(fzf --zsh)
+
+bindkey -v
+alias ls="ls --color"

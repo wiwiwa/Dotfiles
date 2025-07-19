@@ -1,0 +1,21 @@
+#basics
+brew "tmux"
+brew "zsh-autosuggestions"
+brew "fzf"
+brew "pstree"
+brew "p7zip"
+
+tap "virtuslab/scala-cli"
+#brew "openjdk@11"
+brew "openjdk@21"
+brew "virtuslab/scala-cli/scala-cli"
+brew "deno"
+brew "node@22"
+brew "npm"
+
+brew "qemu"
+brew "podman"
+brew "podman-compose"
+
+brew "nmap"
+brew "v2ray"
