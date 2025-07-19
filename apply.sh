@@ -1,11 +1,28 @@
 #!/bin/sh
 
 set -e
-SCRIPT_NAME=$(basename "$0")
-DIR=$(readlink -f $(dirname "$0"))
-for file in $DIR/dot/*; do
-  destFile=$HOME/.${file##*/}
-  test ! -e $destFile &&
-        echo Creating link for $destFile ... &&
-        ln -sf $file $destFile
+
+if [ -t 0 ]; then # Running interactively
+    DEST_DIR=$(cd "$(dirname "$0")" && pwd)
+else
+    echo "Downloading and extracting repository..."
+    GITHUB_USER="wiwiwa"
+    GITHUB_REPO="Dotfiles"
+    BRANCH="main"
+    DEST_DIR="$HOME/.config/Dotfiles"
+
+    mkdir -p "$DEST_DIR"
+    curl -L "https://github.com/${GITHUB_USER}/${GITHUB_REPO}/archive/${BRANCH}.tar.gz" | tar -xz -C "$DEST_DIR" --strip-components=1
+fi
+
+# Apply dotfiles
+echo "Applying dotfiles..."
+for file in ${SOURCE_DIR}/*; do
+  if [ ! -e "$destFile" ]; then
+    destFile="$HOME/.$(basename "$file")"
+    echo "Creating link for $destFile..."
+    ln -s "$file" "$destFile"
+  fi
 done
+
+echo "Dotfiles applied successfully."
