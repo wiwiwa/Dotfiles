@@ -17,11 +17,11 @@ fi
 
 # Apply dotfiles
 echo "Applying dotfiles..."
-for file in ${SOURCE_DIR}/*; do
+for file in ${DEST_DIR}/dot/*; do
+  destFile="$HOME/.$(basename "$file")"
   if [ ! -e "$destFile" ]; then
-    destFile="$HOME/.$(basename "$file")"
     echo "Creating link for $destFile..."
-    ln -s "$file" "$destFile"
+    ln -sf "$file" "$destFile"
   fi
 done
 
